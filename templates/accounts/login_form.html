@@ -1,0 +1,36 @@
+
+    <div>
+        <form method='POST'>
+            {% csrf_token %}
+            {% if error %}
+                <p style='color:red'>{{ error }}</p>
+            {% endif %}
+            <h1>Login to NeatReceipt</h1>
+            <!-- Error Message -->
+                {%  if messages %}
+                    {% for messasge in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <strong>{{ messasge }}</strong>
+                        </div>
+                    {% endfor %}
+                {%  endif %}
+            <!-- Error Message -->
+            <div>
+                <label>Username:</label>
+                <input type='email' class="form-control form-control-sm" name='email' placeholder='email'>
+            </div>
+            <br>
+            <div>
+                <label>Password:</label>
+                <input type='password' class="form-control form-control-sm" name='password' placeholder='password'>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+        <br>
+            <div>
+                <p>Don't have an account? <a href="../register">Sign Up Now</a></p>
+            </div>
+        </form>
+    </div>
