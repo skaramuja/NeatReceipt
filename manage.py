@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+
+import django
 import dotenv
 import pathlib
 
@@ -10,6 +12,7 @@ def main():
     """Run administrative tasks."""
     dotenv.read_dotenv()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'neatreceipt.settings')
+    django.setup()
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

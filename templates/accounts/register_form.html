@@ -1,0 +1,49 @@
+
+    <div>
+        <form method='POST'>
+            {% csrf_token %}
+            {% if error %}
+                <p style='color:red'>{{ error }}</p>
+            {% endif %}
+            <h1>NeatReceipt</h1>
+            <h3>Create New Account</h3>
+            <!-- Error Message -->
+                {%  if messages %}
+                    {% for messasge in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <strong>{{ messasge }}</strong>
+                        </div>
+                    {% endfor %}
+                {%  endif %}
+            <!-- Error Message -->
+            <br>
+            <div>
+                <label>Username:</label>
+                <input type='username' class="form-control form-control-sm" name='username' placeholder='username'>
+            </div>
+            <br>
+            <div>
+                <label>Email:</label>
+                <input type='email' class="form-control form-control-sm" name='email' placeholder='email'>
+            </div>
+            <br>
+            <div>
+                <label>Password:</label>
+                <input type='password' class="form-control form-control-sm" name='password' placeholder='password'>
+            </div>
+            <br>
+            <div>
+                <label>Confirm Password:</label>
+                <input type='password' class="form-control form-control-sm" name='password2' placeholder='password'>
+            </div>
+            <br>
+            <div>
+                <button class="btn btn-primary" type="submit">Register</button>
+            </div>
+            <br>
+            <div>
+                <p>Already have an account? <a href="../login">Login Now</a></p>
+            </div>
+            <br>
+        </form>
+    </div>

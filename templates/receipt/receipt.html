@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+        {% block title %}Receipt{% endblock %}
+
+        {% block content %}
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>{{ receipt.vendor.name }}</h1>
+                            <button class="btn btn-primary btn-lg" id="delete_receipt" type="delete"><a href="delete/{{ receipt.id }}" style="color:white;">delete</a></button>
+                        </div>
+                    </div>
+                </div>
+                  <div class="container">
+                  <div class="row">
+                    <div class="col">
+                        <br>
+                        <p><strong>Receipt Date: </strong>{{ receipt.date }}</p>
+                        <p><strong>Uploaded Date: </strong>{{ receipt.created }}</p>
+                         <p><strong>Category: </strong>{{ receipt.vendor.category }}</p>
+                         <p><strong>Subtotal: </strong> ${{ receipt.subtotal }}</p>
+                         <p><strong>Tax: </strong> ${{ receipt.tax }}</p>
+                         <p><strong>Total: </strong>${{ receipt.total_price }}</p>
+                        <br>
+                      <img src="{{ receipt.image.image.url }}" id="image" width="400px" height="auto" >
+                    </div>
+                    <div class="col">
+                            <table class="table class=table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Items</th>
+                                  <th scope="col">Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                              {% for item in items %}
+                                <tr>
+                                      <td>{{ item.name }}</td>
+                                      <td>${{ item.price }}</td>
+                                </tr>
+                              {% endfor %}
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+            </form>
+        {% endblock %}
