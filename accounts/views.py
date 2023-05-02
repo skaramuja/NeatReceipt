@@ -7,6 +7,11 @@ from accounts.forms import UserRegistrationForm
 
 
 def login_view(request):
+    """
+    Displays the login view.
+    :param request: The HTTP request.
+    :return: A view for logging in.
+    """
     if request.method == "POST":
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -22,11 +27,21 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    Displays a logout view.
+    :param request: The HTTP request.
+    :return: A view for logging the user out.
+    """
     logout(request)
     return redirect('login')
 
 
 def register_view(request):
+    """
+    Displays a view for registering for an account.
+    :param request: The HTTP request.
+    :return: A view for registering for an account.
+    """
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -38,9 +53,7 @@ def register_view(request):
             # Save the User object
             new_user.save()
             login(request, new_user, backend='accounts.authentication.EmailAuthBackEnd')
-            return render(request,
-                          'home.html',
-                          {'new_user': new_user})
+            return redirect('home')
         else:
             messages.success(request, "Registration failed, please try again.")
             return render(request, 'accounts/register.html', {})

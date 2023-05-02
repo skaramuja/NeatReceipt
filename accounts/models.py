@@ -3,7 +3,17 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 
 class MyAccountManager(BaseUserManager):
+    """
+    Account manager.
+    """
     def create_user(self, email, username, password):
+        """
+        Method for creating a user.
+        :param email: The email address of the user.
+        :param username: The username for the user.
+        :param password: The users password.
+        :return: The user who gets created.
+        """
         if not email:
             raise ValueError("Users must have an email address.")
         if not username:
@@ -18,6 +28,13 @@ class MyAccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password):
+        """
+        Creates a superuser.
+        :param email: The email address of the user.
+        :param username: The username for the user.
+        :param password: The users password.
+        :return: The superuser who gets created.
+        """
         print('Creating super user')
         print(email)
         print(username)
@@ -39,14 +56,27 @@ class MyAccountManager(BaseUserManager):
 
 
 def get_profile_image_filepath(self, filename):
+    """
+    Method for retrieving the profile image of the user.
+    :param self:
+    :param filename: The file name of the profile image.
+    :return: The profile image.
+    """
     return 'profile_images/' + str(self.pk) + '/"profile_image.png'
 
 
 def get_default_profile_image():
+    """
+    Gets the default image for a profile.
+    :return: The default profile image.
+    """
     return 'img/default_user_img.png'
 
 
 class Account(AbstractBaseUser):
+    """
+    Model for the account.
+    """
     email = models.EmailField(verbose_name='email', max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
@@ -65,14 +95,33 @@ class Account(AbstractBaseUser):
     REQUIRED_FIELDS = ['username']
 
     def __str__(self):
+        """
+        Creates a new account.
+        :return: The new users name.
+        """
         return self.username
 
     def get_profile_image_filename(self):
+        """
+        Gets the file name of the users profile image.
+        :return: The file name of the users profile image.
+        """
         return str(self.profile_image)[str(self.profile_image).index(f'profile_images/{self.pk}/'):]
 
     def has_perm(self, perm, obj=None):
+        """
+        Indicates if the user is an admin user.
+        :param perm:
+        :param obj:
+        :return: A boolean indicating if the user is an admin.
+        """
         return self.is_admin
 
     def has_module_perms(self, app_label):
+        """
+        Indicates if the user has module permissions.
+        :param app_label:
+        :return: A boolean indicating if the user has module permissions.
+        """
         return True
 

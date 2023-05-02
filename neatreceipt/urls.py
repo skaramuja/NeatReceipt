@@ -21,14 +21,49 @@ from neatreceipt import settings
 from accounts.views import login_view
 from accounts.views import register_view
 from accounts.views import logout_view
+from apps.receipts.views import image_upload_view
+from apps.receipts.views import receipt_view
+from apps.receipts.views import receipts_view
+from apps.receipts.views import receipt_delete
+from apps.receipts.views import reports_view
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home_view, name='home'),
+urlpatterns = []
+
+# Accounts
+
+urlpatterns += [
     path('accounts/login/', login_view, name='login'),
     path('accounts/logout', logout_view, name='logout'),
-    path('accounts/register/', register_view, name='register')
+    path('accounts/register/', register_view, name='register'),
 ]
+
+# Admin
+
+urlpatterns += [
+    path('admin/', admin.site.urls),
+]
+
+# Index
+
+urlpatterns += [
+    path('', home_view, name='home'),
+]
+
+# Receipts
+
+urlpatterns += [
+    path('receipts/<int:receipt_id>', receipt_view),
+    path('receipts/', receipts_view),
+    path('receipts/delete/<int:receipt_id>', receipt_delete, name='delete'),
+    path('upload/', image_upload_view, name='image_upload'),
+]
+
+# Reports
+
+urlpatterns += [
+    path('reports/', reports_view, name='reports'),
+]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

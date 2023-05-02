@@ -16,25 +16,31 @@
                             <h1>Learn more, Spend Less</h1>
                             <h3>Experience paperless receipt tracking</h3>
                             <br>
-                            <form class="form-upload" id="uploadForm" method = "post" enctype="multipart/form-data" >
+                            <form class="form" id="uploadForm" method="POST" enctype="multipart/form-data" >
                                 <!-- Receipt Upload-->
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col">
-                                        <input class="form-control form-control-lg" id="receipt" type="receipt" data-sb-validations="required,receipt" />
-                                        <div class="invalid-feedback text-white" data-sb-feedback="receipt:required">Receipt image is required.</div>
-                                        <div class="invalid-feedback text-white" data-sb-feedback="receipt:email">Image is not valid.</div>
+                                        <input type='file' class="form-control form-control-lg" name="image" id="id_receipt" accept="image/*"/>
+                                        {{ form.media }}
+                                        {{ form.as_p }}
                                     </div>
-                                    <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Upload</button></div>
+                                    <div class="col-auto"><button class="btn btn-primary btn-lg" id="submit" type="submit">Upload</button></div>
                                 </div>
                                 <!-- Submit success message-->
                                 <!---->
-                                <div class="d-none" id="submitSuccessMessage">
-                                    <div class="text-center mb-3">
-                                        <div class="fw-bolder">Form submission successful!</div>
+                                {% if img_obj %}
+                                    <div class="d-none" id="submitSuccessMessage">
+                                        <div class="text-center mb-3">
+                                            <div class="fw-bolder">Succesfully uploaded: {{img_obj.title}}</div>
+                                            <img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                                 <!-- Submit error message-->
-                                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error uploading image!</div></div>
+
+                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error uploading image!</div></div>
+
                             </form>
                         </div>
                     </div>
@@ -130,16 +136,17 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
                         <h2 class="mb-4">Ready to get started? Upload now!</h2>
-                        <form class="form-subscribe" id="uploadFormFooter">
-                            <!-- Upload Receipt -->
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control form-control-lg" id="receipt" type="receipt" data-sb-validations="required,receipt" />
-                                    <div class="invalid-feedback text-white" data-sb-feedback="receipt:required">Image is required.</div>
-                                    <div class="invalid-feedback text-white" data-sb-feedback="receipt:receipt">Image is not valid.</div>
+                        <form class="form" id="uploadForm" method="POST" enctype="multipart/form-data" >
+                            <!-- Receipt Upload-->
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col">
+                                        <input type='file' class="form-control form-control-lg" name="image" id="id_receipt" accept="image/*"/>
+                                        {{ form.media }}
+                                        {{ form.as_p }}
+                                    </div>
+                                    <div class="col-auto"><button class="btn btn-primary btn-lg" id="submit" type="submit">Upload</button></div>
                                 </div>
-                                <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Upload</button></div>
-                            </div>
                             <!-- Submit success message-->
                             <div class="d-none" id="submitSuccessMessage">
                                 <div class="text-center mb-3">
